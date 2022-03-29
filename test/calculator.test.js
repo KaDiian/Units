@@ -17,7 +17,7 @@ describe('Calculator', function() {
           <div class="row">
             <button id="MRC" value="MRC" class="operator">mrc</button>
             <button id="M-" value="M-" class="operator">M-</button>
-            <button id="M+" value="M+" class="operator">M+</button>
+            <button id="Madd" value="M+" class="operator">M+</button>
             <button id="Percent" value="%" class="operator">%</button>
           </div>
           <div class="row">
@@ -78,6 +78,22 @@ describe('Calculator', function() {
     expect(document.getElementById('display').value).toBe('4');
   });
 
+  it('Should return 900 for 00450 + 00450', function(){
+    document.getElementById('num0').click();
+    document.getElementById('num0').click();
+    document.getElementById('num4').click();
+    document.getElementById('num5').click();
+    document.getElementById('num0').click();
+    document.getElementById('add').click();
+    document.getElementById('num0').click();
+    document.getElementById('num0').click();
+    document.getElementById('num4').click();
+    document.getElementById('num5').click();
+    document.getElementById('num0').click();
+    document.getElementById('equal').click();
+    expect(document.getElementById('display').value).toBe('900');
+  });
+
   it('Do not allows a zero before another digit of input for a second operand', function(){
     document.getElementById('num5').click();
     document.getElementById('multiply').click();
@@ -85,16 +101,6 @@ describe('Calculator', function() {
     document.getElementById('num6').click();
     document.getElementById('equal').click();
     expect(document.getElementById('display').value).toBe('30');
-  });
-
-  it('Do not allows a double negation, error must be thrown', function(){
-    expect(function(){
-      document.getElementById('minus').click();
-      document.getElementById('minus').click();
-      document.getElementById('num3').click();
-      document.getElementById('num6').click();
-      document.getElementById('equal').click();
-    }).toThrowError
   });
 
   it('Clear the screen after doing no calculations', function(){
@@ -647,12 +653,11 @@ describe('Calculator', function() {
     expect(document.getElementById('display').value).toBe('4');
   });
 
-  it('Should not allow the square root of a negative integer, an error must be thrown', function(){
-    expect(function(){
+  it('Should not allow the square root of a negative integer', function(){
       document.getElementById('minus').click();
       document.getElementById('num6').click();
       document.getElementById('sqrt').click();
-    }).toThrowError
+      expect(document.getElementById('display').value).toBe('NaN');
   });
 
   it('Return NaN for the square root of an empty display', function(){
